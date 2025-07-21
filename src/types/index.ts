@@ -44,6 +44,51 @@ export interface Registration {
   createdAt: string;
 }
 
+export interface Room {
+  id: string;
+  name: string;
+  type: string;
+  quota: number;
+  isActive: boolean;
+}
+
+export interface Doctor {
+  id: string;
+  name: string;
+  specialization: string;
+  roomId: string;
+  isActive: boolean;
+}
+
+export interface PaymentMethod {
+  id: string;
+  name: string;
+  isActive: boolean;
+}
+
+export interface Guarantor {
+  id: string;
+  name: string;
+  type: string;
+  isActive: boolean;
+}
+
+export interface PatientVisit {
+  id: string;
+  idPendaftaran: string;
+  noAntrian: number;
+  tanggal: string;
+  patientId: string;
+  roomId: string;
+  doctorId: string;
+  paymentMethodId: string;
+  guarantorId: string;
+  pengantarPasien: string;
+  teleponPengantar: string;
+  status: 'Dalam Antrian' | 'Dalam Pemeriksaan' | 'Selesai';
+  createdAt: string;
+}
+
 export interface User {
   id: string;
   username: string;

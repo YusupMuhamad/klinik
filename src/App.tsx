@@ -23,37 +23,8 @@ function App() {
   } | null>(null);
 
   useEffect(() => {
-    // Check if user is already logged in
-    const checkUser = async () => {
-      const { user } = await authService.getCurrentUser();
-      if (user) {
-        setUser({
-          id: user.id,
-          name: user.email?.split('@')[0] || 'User',
-          email: user.email || '',
-          role: 'admin'
-        });
-      }
-      setIsLoading(false);
-    };
-
-    checkUser();
-
-    // Listen for auth changes
-    const { data: { subscription } } = authService.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        setUser({
-          id: session.user.id,
-          name: session.user.email?.split('@')[0] || 'User',
-          email: session.user.email || '',
-          role: 'admin'
-        });
-      } else if (event === 'SIGNED_OUT') {
-        setUser(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    // Demo mode - no persistent login
+    setIsLoading(false);
   }, []);
 
   const showNotification = (type: 'success' | 'error', message: string) => {
@@ -65,13 +36,8 @@ function App() {
   };
 
   const handleLogout = async () => {
-    try {
-      await authService.signOut();
-      setUser(null);
-      setCurrentView('pendaftaran-pasien');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    setUser(null);
+    setCurrentView('pendaftaran-pasien');
   };
 
   const handleMenuClick = (menu: string) => {

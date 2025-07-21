@@ -7,8 +7,8 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin');
+  const [password, setPassword] = useState('admin');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -18,20 +18,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setError('');
 
     try {
-      const { data, error } = await authService.signIn(email, password);
-      
-      if (error) {
-        setError(error.message);
-        return;
-      }
-
-      if (data.user) {
+      // Demo login - bypass Supabase authentication
+      if (email === 'admin' && password === 'admin') {
         onLogin({
-          id: data.user.id,
-          name: data.user.email?.split('@')[0] || 'User',
-          email: data.user.email || '',
-          role: 'admin'
+          id: 'demo-admin',
+          username: 'admin',
+          name: 'Administrator',
+          email: 'admin@demo.com',
+          role: 'administrasi'
         });
+      } else {
+        setError('Username atau password salah');
       }
     } catch (err) {
       setError('Terjadi kesalahan saat login');
@@ -66,18 +63,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+                  Username
                 </label>
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  autoComplete="email"
+                  type="text"
+                  autoComplete="username"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Masukkan email Anda"
+                  placeholder="Masukkan username Anda"
                 />
               </div>
               
@@ -114,7 +111,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             
             <div className="text-center">
               <p className="text-xs text-gray-500">
-                Demo: Gunakan email dan password yang sudah terdaftar di Supabase
+                Demo: Username: admin, Password: admin
               </p>
             </div>
           </form>

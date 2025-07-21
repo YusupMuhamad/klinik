@@ -49,4 +49,5 @@ export interface User {
   username: string;
   role: 'administrasi' | 'dokter';
   name: string;
+  email: string;
 }

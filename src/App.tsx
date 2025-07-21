@@ -7,8 +7,9 @@ import PatientRegistration from './components/PatientRegistration/PatientRegistr
 import PatientsData from './components/Patients/PatientsData';
 import PatientForm from './components/Patients/PatientForm';
 import PatientSelection from './components/PatientRegistration/PatientSelection';
+import RegistrationForm from './components/PatientRegistration/RegistrationForm';
 import Notification from './components/Notification';
-import { User, Patient } from './types';
+import { User, Patient, PatientVisit } from './types';
 import { patientService } from './services/patientService';
 import { authService } from './lib/supabase';
 

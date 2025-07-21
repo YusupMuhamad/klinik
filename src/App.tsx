@@ -6,6 +6,7 @@ import Header from './components/Layout/Header';
 import PatientRegistration from './components/PatientRegistration/PatientRegistration';
 import PatientsData from './components/Patients/PatientsData';
 import PatientForm from './components/Patients/PatientForm';
+import PatientSelection from './components/PatientRegistration/PatientSelection';
 import Notification from './components/Notification';
 import { User, Patient } from './types';
 import { patientService } from './services/patientService';
@@ -15,7 +16,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeMenu, setActiveMenu] = useState('pendaftaran-pasien');
-  const [currentView, setCurrentView] = useState<'dashboard' | 'pendaftaran-pasien' | 'pasien' | 'laporan' | 'new-patient'>('pendaftaran-pasien');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'pendaftaran-pasien' | 'pasien' | 'laporan' | 'new-patient' | 'patient-selection'>('pendaftaran-pasien');
   const [patients, setPatients] = useState<Patient[]>([]);
   const [notification, setNotification] = useState<{
     type: 'success' | 'error';
@@ -46,7 +47,7 @@ function App() {
   };
 
   const handleNavigateToPatients = () => {
-    setCurrentView('pasien');
+    setCurrentView('patient-selection');
     setActiveMenu('pasien');
   };
 
@@ -56,6 +57,11 @@ function App() {
   };
 
   const handleNavigateToDashboard = () => {
+    setCurrentView('pendaftaran-pasien');
+    setActiveMenu('pendaftaran-pasien');
+  };
+
+  const handleNavigateToRegistration = () => {
     setCurrentView('pendaftaran-pasien');
     setActiveMenu('pendaftaran-pasien');
   };
@@ -74,6 +80,14 @@ function App() {
     }
   };
 
+  const handleSelectPatientForRegistration = (patient: Patient) => {
+    console.log('Selected patient for registration:', patient);
+    // TODO: Navigate to registration form with selected patient
+    // For now, just go back to registration list
+    setCurrentView('pendaftaran-pasien');
+    setActiveMenu('pendaftaran-pasien');
+  };
+
   const renderContent = () => {
     switch (currentView) {
       case 'dashboard':
@@ -88,6 +102,15 @@ function App() {
           <PatientRegistration 
             onNavigateToPatients={handleNavigateToPatients}
             onNavigateToNewPatient={handleNavigateToNewPatient}
+          />
+        );
+      case 'patient-selection':
+        return (
+          <PatientSelection
+            onNavigateToDashboard={handleNavigateToDashboard}
+            onNavigateToRegistration={handleNavigateToRegistration}
+            onSelectPatient={handleSelectPatientForRegistration}
+            onShowNotification={showNotification}
           />
         );
       case 'pasien':

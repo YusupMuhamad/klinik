@@ -95,7 +95,7 @@ const PatientsData: React.FC<PatientsDataProps> = ({
           className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         >
           <Plus className="w-5 h-5" />
-          <span>Tambah Data Pasien</span>
+          <span>Tambah Pasien Baru</span>
         </button>
       </div>
 
@@ -150,7 +150,7 @@ const PatientsData: React.FC<PatientsDataProps> = ({
                     {patient.namaLengkap}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {patient.jenisKelamin}
+                    {patient.tempatLahir}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(patient.tanggalLahir).toLocaleDateString('id-ID')}

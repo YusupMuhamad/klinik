@@ -9,6 +9,31 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Auth helper functions
+export const authService = {
+  async signIn(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    return { data, error };
+  },
+
+  async signOut() {
+    const { error } = await supabase.auth.signOut();
+    return { error };
+  },
+
+  async getCurrentUser() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    return { user, error };
+  },
+
+  onAuthStateChange(callback: (event: string, session: any) => void) {
+    return supabase.auth.onAuthStateChanged(callback);
+  }
+};
+
 // Database types
 export interface Database {
   public: {
